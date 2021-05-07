@@ -1,0 +1,42 @@
+<h3>注文履歴詳細</h3>
+<p>購入者 <%= @order.customer.first_name %><%= @order.customer.last_name %</p>
+<p>注文日</p>
+<p>配送先</p>
+<p>支払方法</p>
+<%= form_with model:@order, local: true, url: admin_order_path(@order), method: :patch do |f| %>
+<p>
+  注文ステータス
+  <%= f.select :status, Order.statuss_i18n.keys.map{|k| [I18n.t("enum.order.status.#{k}"), k]} %>
+</p>
+<%= f.submit '更新' %>
+<% end %>
+
+<table>
+  <tr>
+    <th>商品名</th>
+    <th>単価（税込）</th>
+    <th>数量</th>
+    <th>小計</th>
+    <th>製作ステータス</th>
+    <th></th>
+  </tr>
+  <% @order_items.each do |order_item| %>
+  <tr>
+    <td><%= order_item.name %></td>
+    <td><%= order_item.price %></td>
+    <td><%= order_item.amount %></td>
+    <td>
+      <% a = order_item.price %>
+      <% b = order_item.amount %>
+      <%= "a*b" %>
+      <% end %>
+    </td>
+    <td>
+      着手不可
+    </td>
+    <td>
+      更新
+    </td>
+  </tr>
+  <% end %>
+</table>
