@@ -1,0 +1,32 @@
+<h3>注文情報確認</h3>
+
+<table>
+  <tr>
+    <th>商品名</th>
+    <th>単価（税込）</th>
+    <th>数量</th>
+    <th>小計</th>
+    <th></th>
+  </tr>
+  <% @cart_items.each do |cart_item| %>
+  <tr>
+    <td><%= cart_item.item.name %></td>
+    <td><%= cart_item.item.price %></td>
+    <td><%= cart_item.amount %></td>
+    <td>小計</td>
+  </tr>
+  <% end %>
+</table>
+
+<h4>支払い方法</h4>
+<%= @method_payment %>
+
+<h4>お届け先</h4>
+<p>
+  〒<%= @order.postal_code %><%= @order.address %> </br>
+  <%= @order.name %>
+</p>
+
+<%= form_with model: @order, local: true, url: orders_path, method: :post do |f| %>
+<%= f.submit "注文を確定する" %>
+<% end %>
