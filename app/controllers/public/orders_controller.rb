@@ -2,12 +2,15 @@ class Public::OrdersController < ApplicationController
 
   def new
     @order = Order.new
+    @order.shipping = 800
   end
 
   def confirm
     # byebug
     @cart_items = current_customer.cart_items.all
     @order = Order.new
+    @order.method_payment = params[:method_payment]
+     @order.customer_id = current_customer.id
     if params[:address_option] == "0"
       @order.address = current_customer.address
       @order.postal_code = current_customer.postal_code
@@ -20,14 +23,10 @@ class Public::OrdersController < ApplicationController
     elsif params[:address_option] == "2"
       @order.address = params[:address]
       @order.postal_code = params[:postal_code]
-      @order.address = params[:name]
+      @order.name = params[:name]
     end
 
-    if params[:method_payment] == "0"
-      @method_payment = "クレジットカード"
-    elsif params[:method_payment] == "1"
-      @method_payment = "銀行振込"
-    end
+
 
   end
 
@@ -35,24 +34,36 @@ class Public::OrdersController < ApplicationController
   end
 
   def create
+    sum = 0
+    shipping = 800
+    current_customer.cart_items.each {|ci| sum += (ci.amount * ci.item.price)}
+    total_payment = (sum * 1.1).round(0) + shipping
     @order = Order.new(order_params)
+    @order.shipping = shipping
+    @order.total_payment = total_payment
     @order.customer_id = current_customer.id
-    @order.save
-    redirect_to  orders_complete_path
+    if @order.save
+      current_customer.cart_items.destroy_all
+      redirect_to  orders_complete_path
+    elsif
+      render :confirm
+    end
   end
 
   def new
   end
 
   def index
+    @orders = current_customer.orders.order(created_at: :desc)
   end
 
   def show
+    @order = Order.find(params[:id])
   end
 
   private
   def order_params
-    params.require(:order).permit(:customer_id, :postal_code, :address, :name, :method_payment )
+    params.require(:order).permit(:customer_id, :postal_code, :address, :name, :method_payment,:method_payment, :shipping, :total_payment )
   end
 
 end

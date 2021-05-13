@@ -8,18 +8,41 @@
     <th>小計</th>
     <th></th>
   </tr>
+  <% @sum = 0 %> <!--初期値-->
   <% @cart_items.each do |cart_item| %>
   <tr>
     <td><%= cart_item.item.name %></td>
-    <td><%= cart_item.item.price %></td>
+    <td><%= (cart_item.item.price * 1.1).round(0) %></td>
     <td><%= cart_item.amount %></td>
-    <td>小計</td>
+    <td><%= (cart_item.item.price * 1.1).round(0) * cart_item.amount %></td>
   </tr>
+  <% @sum += (cart_item.item.price * 1.1).round(0) * cart_item.amount %>
   <% end %>
+</table>
+<table>
+  <tr>
+    <td>送料</td>
+    <% @order.shipping = 800 %>
+    <td><%= @order.shipping %></td>
+  </tr>
+  <tr>
+    <td>商品合計</td>
+    <td><%= @sum %></td>
+  </tr>
+  <tr>
+    <td>請求金額</td>
+    <% @order.total_payment = @sum + @order.shipping %>
+    <td><%= @order.total_payment %></td>
+  </tr>
 </table>
 
 <h4>支払い方法</h4>
-<%= @method_payment %>
+<% if @order.method_payment = "クレジットカード" %>
+   <p>クレジットカード</p>
+<% elsif @order.method_payment = "銀行振込" %>
+   <p>銀行振込</p>
+<% end %>
+
 
 <h4>お届け先</h4>
 <p>
@@ -28,5 +51,10 @@
 </p>
 
 <%= form_with model: @order, local: true, url: orders_path, method: :post do |f| %>
-<%= f.submit "注文を確定する" %>
+<!--https://sakurawi.hateblo.jp/entry/hidden_field-->
+   <%= hidden_field(:order, :postal_code) %>
+   <%= hidden_field(:order, :address) %>
+   <%= hidden_field(:order, :name) %>
+   <%= hidden_field(:order, :method_payment) %>
+   <%= f.submit "注文を確定する" %>
 <% end %>

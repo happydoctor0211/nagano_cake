@@ -9,10 +9,10 @@
 <h3>新着商品</h3>
 <% @items.each do |item| %>
 <div>
-   <%= attachment_image_tag item, :image %>
+   <%= attachment_image_tag item, :image, style: "width: 200px;" %>
    <%= item.name %>
    <%= item.price %>
 </div>
 <% end %>
 
-<p>全ての商品を見る</p>
+<p><%= link_to "全ての商品を見る", items_path %></p>

@@ -5,7 +5,7 @@ class Order < ApplicationRecord
 
   #https://note.com/yukinooffice/n/n626eed3287c5を参照
   enum status: {
-    waiting_for_payment: 0,
+    入金確認: 0,
     payment_confirmation: 1,
     making: 2,
     prepairing_to_ship: 3,

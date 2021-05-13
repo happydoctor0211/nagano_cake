@@ -21,7 +21,6 @@
            <li><%= link_to "ログアウト（管理者）", destroy_admin_session_path, method: :delete %></li>
           <% else %>
            <li>LOGO</li>
-           <li>About</li>
            <li><%= link_to "商品一覧", admin_items_path %></li>
            <li><%= link_to "新規登録(管理者)", new_admin_registration_path %></li>
            <li><%= link_to "ログイン（管理者）", new_admin_session_path %></li>
@@ -37,7 +36,7 @@
            <li><%= link_to "カート", cart_items_path %></li>
            <li><%= link_to "ログアウト（ユーザー）", destroy_customer_session_path, method: :delete %></li>
           <% else %>
-           <li><%= link_to "アバウト", new_customer_registration_path %></li>
+           <li><%= link_to "アバウト", about_path %></li>
            <li><%= link_to "商品一覧", items_path %></li>
             <li><%= link_to "新規登録(ユーザー)", new_customer_registration_path %></li>
            <li><%= link_to "ログイン（ユーザー）", new_customer_session_path %></li>
