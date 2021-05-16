@@ -1,9 +1,10 @@
 <h3>商品詳細</h3>
-<%= attachment_image_tag @item, :image %>
+<%= attachment_image_tag @item, :image, style: "width: 200px;" %>
+
 <p>商品名 <%= @item.name %></p>
 <p>商品説明 <%= @item.introduction %></p>
 <p>ジャンル <%= @item.genre.name %></p>
-<p>税込価格(税抜価格)  (<%= @item.price %>) </p>
+<p>税込価格(税抜価格)  <%= @in_tax %>(<%= @item.price %>)円 </p>
 <p>
   販売ステータス
   <% @item.is_active %>

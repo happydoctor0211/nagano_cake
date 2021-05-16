@@ -3,8 +3,14 @@ ja:
  enum:
   order:
    status:
-    waiting_fo_payment: "入金待ち"
+    waiting_for_payment: "入金待ち"
     payment_confirmation: "入金確認"
     making: "製作中"
     prepairing_to_ship: "発送準備中"
     shipped: "発送済"
+  order_item:
+   making_status:
+    can_not_make: "製作不可"
+    waiting_for_making: "製作待ち"
+    making: "製作中"
+    made: "製作完了"

@@ -35,9 +35,15 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def configure_permitted_parameters
-   devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :first_name_kana, :last_name_kana,:email, :postal_code, :address, :telephone_number])
-   devise_parameter_sanitizer.permit(:sign_in, keys: [:email])
+  def configure_permitted_parameters(resource)
+    case resources
+    when Admin
+       devise_parameter_sanitizer.permit(:sign_up, keys: [:email])
+       devise_parameter_sanitizer.permit(:sign_in, keys: [:email])
+    when Customer
+     devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :first_name_kana, :last_name_kana,:email, :postal_code, :address, :telephone_number])
+     devise_parameter_sanitizer.permit(:sign_in, keys: [:email])
+    end
   end
 
 end

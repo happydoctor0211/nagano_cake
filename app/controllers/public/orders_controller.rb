@@ -14,7 +14,7 @@ class Public::OrdersController < ApplicationController
     if params[:address_option] == "0"
       @order.address = current_customer.address
       @order.postal_code = current_customer.postal_code
-      @order.name = current_customer.first_name
+      @order.name = current_customer.first_name + current_customer.last_name
     elsif params[:address_option] == "1"
       @find_address = Address.find(params[:customer])
       @order.address = @find_address.address
@@ -34,15 +34,23 @@ class Public::OrdersController < ApplicationController
   end
 
   def create
-    sum = 0
     shipping = 800
-    current_customer.cart_items.each {|ci| sum += (ci.amount * ci.item.price)}
-    total_payment = (sum * 1.1).round(0) + shipping
     @order = Order.new(order_params)
+    sum = 0
+    current_customer.cart_items.each { |ci| sum += (ci.item.price * 1.1 ).round(0) }
     @order.shipping = shipping
-    @order.total_payment = total_payment
+    @order.total_payment = sum + shipping
     @order.customer_id = current_customer.id
     if @order.save
+      current_customer.cart_items.each do |ci|
+       @order_item = OrderItem.new
+       @order_item.order = @order
+       @order_item.item_id = ci.item_id
+       @order_item.price = ci.item.price
+       @order_item.amount = ci.amount
+       @order_item.making_status = 0
+       @order_item.save
+     end
       current_customer.cart_items.destroy_all
       redirect_to  orders_complete_path
     elsif

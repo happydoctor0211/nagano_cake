@@ -6,6 +6,11 @@ class Admin::CustomersController < ApplicationController
   
   def show
     @customer = Customer.find(params[:id])
+    if @customer.is_active == true
+      @status = "有効"
+    else
+      @status = "退会"
+    end
   end
 
   def edit

@@ -2,16 +2,16 @@
 
 <table>
   <tr>
-    <th>会員ID</th>
-    <th>氏名</th>
-    <th>メールアドレス</th>
-    <th>ステータス</th>
+    <td>会員ID</td>
+    <td>氏名</td>
+    <td>メールアドレス</td>
+    <td>ステータス</td>
   </tr>
   <% @customers.each do |customer| %>
   <tr>
     <td><%= customer.id %></td>
     <td>
-      <%= link_to(admin_customer_patk(customer)) do %>
+      <%= link_to(admin_customer_path(customer)) do %>
        <%= customer.first_name %><%= customer.last_name %>
       <% end %>
     </td>

@@ -13,5 +13,7 @@ module NaganoCake
     # -- all .rb files in that directory are automatically loaded.
     config.i18n.default_locale = :ja
     config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
+    # タイムゾーンを日本時間に設定
+    config.time_zone = 'Asia/Tokyo'
   end
 end
