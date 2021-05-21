@@ -1,35 +1,40 @@
-<h3>注文履歴一覧</h3>
-<table>
-  <tr>
-    <td>注文日</td>
-    <td>配送先</td>
-    <td>注文商品</td>
-    <td>支払金額</td>
-    <td>ステータス</td>
-    <td>注文詳細</td>
+<div class="container">
+   <div class="row">
+     <h4>注文履歴一覧</h4>
+   </div>
+</div>
+
+<table class="container table">
+  <tr class="row thead-light">
+    <th class="col-lg-1">注文日</th>
+    <th class="col-lg-4">配送先</th>
+    <th class="col-lg-2">注文商品</th>
+    <th class="col-lg-1">支払金額</th>
+    <th class="col-lg-2">ステータス</th>
+    <th class="col-lg-2">注文詳細</th>
   </tr>
   <% @orders.each do |order| %>
-  <tr>
-    <td>
+  <tr class="row">
+    <td class="col-lg-1">
       <%= order.created_at.strftime( '%Y/%m/%d') %>
     </td>
-    <td>
+    <td class="col-lg-4">
       〒<%= order.postal_code %></br>
       <%= order.address %> </br>
       <%= order.name %>
     </td>
-    <td>
+    <td class="col-lg-2">
       <% order.order_items.each do |order_item| %>
        <%= order_item.item.name %> </br>
       <% end %>
     </td>
-    <td>
+    <td class="col-lg-1">
       <%= order.total_payment %>円
     </td>
-    <td>
-      <%= order.status %>
+    <td class="col-lg-2">
+      <%= I18n.t("enum.order.status.#{ order.status }") %>
     </td>
-    <td><%= link_to "表示する", order_path(order) %></td>
+    <td class="col-lg-2"><%= link_to "表示する", order_path(order) %></td>
   </tr>
   <% end %>
 </table>

@@ -1,60 +1,66 @@
-<h3>注文情報確認</h3>
+<div class="container">
+   <div class="row">
+     <h4>注文情報確認</h4>
+   </div>
+</div>
 
-<table>
-  <tr>
-    <th>商品名</th>
-    <th>単価（税込）</th>
-    <th>数量</th>
-    <th>小計</th>
-    <th></th>
+<table  class="container table">
+  <tr class="row thead-light">
+    <th class="col-lg-6">商品名</th>
+    <th class="col-lg-2">単価（税込）</th>
+    <th class="col-lg-2">数量</th>
+    <th class="col-lg-2">小計</th>
   </tr>
   <% @sum = 0 %> <!--初期値-->
   <% @cart_items.each do |cart_item| %>
-  <tr>
-    <td><%= cart_item.item.name %></td>
-    <td><%= (cart_item.item.price * 1.1).round(0) %></td>
-    <td><%= cart_item.amount %></td>
-    <td><%= (cart_item.item.price * 1.1).round(0) * cart_item.amount %></td>
+  <tr class="row">
+    <td class="col-lg-6"><%= cart_item.item.name %></td>
+    <td class="col-lg-2"><%= ((cart_item.item.price * 1.1).round(0)).to_s(:delimited) %></td>
+    <td class="col-lg-2"><%= cart_item.amount %></td>
+    <td class="col-lg-2"><%= ((cart_item.item.price * 1.1).round(0) * cart_item.amount).to_s(:delimited) %></td>
   </tr>
   <% @sum += (cart_item.item.price * 1.1).round(0) * cart_item.amount %>
   <% end %>
 </table>
-<table>
-  <tr>
-    <td>送料</td>
-    <% @order.shipping = 800 %>
-    <td><%= @order.shipping %></td>
+<table class="container table">
+  <tr class="row">
+    <td class="table-active col-lg-2">送料</td>
+    <% @shipping = 800 %>
+    <td class="col-lg-2"><%= @shipping %></td>
   </tr>
-  <tr>
-    <td>商品合計</td>
-    <td><%= @sum %></td>
+  <tr class="row">
+    <td class="table-active col-lg-2">商品合計</td>
+    <td class="col-lg-2"><%= @sum.to_s(:delimited) %></td>
   </tr>
-  <tr>
-    <td>請求金額</td>
-    <% @order.total_payment = @sum + @order.shipping %>
-    <td><%= @order.total_payment %></td>
+  <tr class="row">
+    <td class="table-active col-lg-2">請求金額</td>
+    <% @order.total_payment = @sum + @shipping %>
+    <td class="col-lg-2"><%= (@order.total_payment).to_s(:delimited) %></td>
   </tr>
 </table>
 
-<h4>支払い方法</h4>
-<% if @order.method_payment = "クレジットカード" %>
-   <p>クレジットカード</p>
-<% elsif @order.method_payment = "銀行振込" %>
-   <p>銀行振込</p>
-<% end %>
+<div class="container">
+   <div class="row">
+     <p class="col-lg-2"><strong>支払い方法</strong></p>
+     <p class="col-lg-8"><%= I18n.t("enum.order.method_payment.#{ @order.method_payment }") %></p>
+   </div>
+   <div class="row">
+     <p class="col-lg-2"><strong>お届け先</strong></p>
+     <p class="col-lg-8">
+       〒<%= @order.postal_code %><%= @order.address %> </br>
+       <%= @order.name %>
+     </p>
+   </div>
+</div>
 
-
-<h4>お届け先</h4>
-<p>
-  〒<%= @order.postal_code %><%= @order.address %> </br>
-  <%= @order.name %>
-</p>
-
-<%= form_with model: @order, local: true, url: orders_path, method: :post do |f| %>
-<!--https://sakurawi.hateblo.jp/entry/hidden_field-->
-   <%= hidden_field(:order, :postal_code) %>
-   <%= hidden_field(:order, :address) %>
-   <%= hidden_field(:order, :name) %>
-   <%= hidden_field(:order, :method_payment) %>
-   <%= f.submit "注文を確定する" %>
-<% end %>
+<div class="container">
+    <%= form_with model: @order, local: true, url: orders_path, method: :post do |f| %>
+     <!--https://sakurawi.hateblo.jp/entry/hidden_field-->
+     <%= f.hidden_field(:postal_code) %>
+     <%= f.hidden_field(:address) %>
+     <%= f.hidden_field(:name) %>
+     <%= f.hidden_field(:method_payment) %>
+     <%= f.hidden_field(:address_option, value: params[:address_option]) %>
+     <%= f.submit "注文を確定する" %>
+    <% end %>
+</div>

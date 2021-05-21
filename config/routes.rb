@@ -18,6 +18,11 @@ Rails.application.routes.draw do
   scope module: :public do
    root to: 'homes#top'
    get 'about', to: 'homes#about'
+   get 'customers/my_page', to:'customers#show'
+   get 'customers/edit', to:'customers#edit'
+   get 'customers/confirm', to:'customers#confirm'
+   patch 'customers', to:'customers#update'
+   patch 'customers/withdraw', to:'customers#withdraw'
    devise_for :customers
    #https://qiita.com/yuki_0920/items/14594e697a8aa44b725cを参照
    #devise_scope :customer do
@@ -30,11 +35,6 @@ Rails.application.routes.draw do
    resources :items, :only => [:index, :show]
    resources :addresses, :only => [:index, :edit, :create, :update, :destroy]
    # customer
-   get 'customers/my_page', to:'customers#show'
-   get 'customers/edit', to:'customers#edit'
-   get 'customers/confirm', to:'customers#confirm'
-   patch 'customers', to:'customer#update'
-   patch 'customers/withdraw', to:'customers#withdraw'
    get 'orders/complete', to:'orders#complete'
    # order
    resources :orders, :only => [:new, :index, :show, :create]

@@ -1,5 +1,7 @@
 class Public::OrdersController < ApplicationController
 
+   before_action :authenticate_customer!
+
   def new
     @order = Order.new
     @order.shipping = 800
@@ -37,7 +39,7 @@ class Public::OrdersController < ApplicationController
     shipping = 800
     @order = Order.new(order_params)
     sum = 0
-    current_customer.cart_items.each { |ci| sum += (ci.item.price * 1.1 ).round(0) }
+    current_customer.cart_items.each { |ci| sum += (ci.item.price * ci.amount * 1.1  ).round(0) }
     @order.shipping = shipping
     @order.total_payment = sum + shipping
     @order.customer_id = current_customer.id
@@ -51,6 +53,14 @@ class Public::OrdersController < ApplicationController
        @order_item.making_status = 0
        @order_item.save
      end
+      if params[:order][:address_option] == "2"
+        address = Address.new
+        address.customer_id = current_customer.id
+        address.name = @order.name
+        address.postal_code = @order.postal_code
+        address.address = @order.address
+        address.save
+      end
       current_customer.cart_items.destroy_all
       redirect_to  orders_complete_path
     elsif
@@ -71,7 +81,11 @@ class Public::OrdersController < ApplicationController
 
   private
   def order_params
-    params.require(:order).permit(:customer_id, :postal_code, :address, :name, :method_payment,:method_payment, :shipping, :total_payment )
+    params.require(:order).permit(:customer_id, :postal_code, :address, :name, :method_payment, :shipping, :total_payment )
+  end
+
+  def address_params
+     params.require(:address).permit(:customer_id, :postal_code, :address, :name )
   end
 
 end

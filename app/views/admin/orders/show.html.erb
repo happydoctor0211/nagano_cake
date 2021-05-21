@@ -45,13 +45,13 @@
       <%= order_item.item.name %>
     </td>
     <td>
-      <%= (order_item.price * @tax).round(0) %>
+      <%= ((order_item.price * @tax).round(0)).to_s(:delimited) %>
     </td>
     <td>
       <%= order_item.amount %>
     </td>
     <td>
-      <%= (order_item.price * order_item.amount * @tax).round(0) %>
+      <%= ((order_item.price * order_item.amount * @tax).round(0)).to_s(:delimited) %>
     </td>
     <td>
        <%= form_with model: order_item, local: true, url: admin_order_item_path(order_item), method: :patch do |f|%>
@@ -66,7 +66,7 @@
 <table>
   <tr>
     <td>商品合計</td>
-    <td><%= @total_order_price %>円</td>
+    <td><%= (@total_order_price).to_s(:delimited) %>円</td>
   </tr>
   <tr>
     <td>送料</td>
@@ -74,7 +74,7 @@
   </tr>
   <tr>
     <td>請求金額合計</td>
-    <td><%= @total_payment %>円</td>
+    <td><%= (@total_payment).to_s(:delimited) %>円</td>
   </tr>
 </table>
 

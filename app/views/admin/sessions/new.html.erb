@@ -1,13 +1,16 @@
 <h2>管理者ログイン</h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <p>メールアドレス  <%= f.email_field :email, autofocus: true, autocomplete: "email" %></p>
-  </div>
-
-  <div class="field">
-    <p>パスワード  <%= f.password_field :password, autocomplete: "current-password" %></p>
-  </div>
+<table>
+  <tr>
+    <td>メールアドレス</td>
+    <td><%= f.email_field :email, autofocus: true, autocomplete: "email", size: 35 %></td>
+  </tr>
+  <tr>
+    <td>パスワード</td>
+    <td><%= f.password_field :password, autocomplete: "current-password", size: 35 %></td>
+  </tr>
+</table>
 
   <%# if devise_mapping.rememberable? %>
     <!--<div class="field">-->

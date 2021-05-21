@@ -15,8 +15,8 @@ class Order < ApplicationRecord
 
   #https://qiita.com/dawn_628/items/944c79b06299a35b5225
   enum method_payment: {
-    クレジットカード: 0,
-    銀行振込: 1,
+    credit_card: 0,
+    bank: 1,
   }
 
 end

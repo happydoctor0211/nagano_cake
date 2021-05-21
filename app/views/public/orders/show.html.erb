@@ -1,41 +1,75 @@
-<h3>注文履歴一覧</h3>
-
-<h4>注文情報</h4>
-<table>
-  <tr>
-    <td>注文日</td>
-    <td><%= @order.created_at.strftime('%Y/%m/%d') %>
+<div class="container">
+   <div class="row">
+     <h4>注文履歴詳細</h4>
+   </div>
+</div>
+<div class="container">
+   <div class="row">
+     <p><strong>注文情報</strong></p>
+   </div>
+</div>
+<table class="container table">
+  <tr class="row">
+    <td class="table-active col-lg-2">注文日</td>
+    <td class="col-lg-7"><%= @order.created_at.strftime('%Y/%m/%d') %>
   </tr>
-  <tr>
-    <td>配送先</td>
-    <td>
+  <tr class="row">
+    <td class="table-active col-lg-2">配送先</td>
+    <td class="col-lg-7">
       〒<%= @order.postal_code %> </br>
       <%= @order.address %> </br>
       <%= @order.name %>
     </td>
   </tr>
-  <tr>
-    <td>支払方法</td>
-    <td><%= @order.method_payment %></td>
+  <tr class="row">
+    <td class="table-active col-lg-2">支払方法</td>
+    <td class="col-lg-7"><%= I18n.t("enum.order.method_payment.#{ @order.method_payment }") %></td>
   </tr>
-  <tr>
-    <td>ステータス</td>
-    <td><%= @order.status %></td>
+  <tr class="row">
+    <td class="table-active col-lg-2">ステータス</td>
+    <td class="col-lg-7"><%= I18n.t("enum.order.status.#{ @order.status }") %></td>
   </tr>
 </table>
 
-<h4>請求情報</h4>
-<table>
-  <tr>
-    <td>商品合計</td>
-    <td></td>
+
+<div class="container">
+   <div class="row">
+     </div><p><strong>請求情報</strong></p>
+   </div>
+</div>
+<table class="container table">
+  <tr class="row">
+    <td class="table-active col-lg-2">商品合計</td>
+    <td class="col-lg-2"><%= (@order.total_payment - @order.shipping) %></td>
   </tr>
-  <tr>
-    <td>配送料</td>
-    <td></td>
+  <tr class="row">
+    <td class="table-active col-lg-2">配送料</td>
+    <td class="col-lg-2"><%= @order.shipping %></td>
   </tr>
-  <tr>
-    <td>ご請求額</td>
-    <td><%= @order.total_payment %></td>
+  <tr class="row">
+    <td class="table-active col-lg-2"><strong>ご請求額</strong></td>
+    <td class="col-lg-2"><%= (@order.total_payment).to_s(:delimited) %></td>
   </tr>
+</table>
+
+<div class="container">
+   <div class="row">
+     <h4>注文内容</h4>
+   </div>
+</div>
+<table class="container table">
+  <tr class="row thead-light">
+    <th class="col-lg-7">商品</th>
+    <th class="col-lg-2">単価(税込)</th>
+    <th class="col-lg-1">個数</th>
+    <th class="col-lg-1">小計</th>
+  </tr>
+  <% @order.order_items.each do |order_item| %>
+  <tr class="row">
+    <td class="col-lg-7"><%= order_item.item.name %></td>
+    <td class="col-lg-2"><%= ((order_item.item.price * 1.1 ).round(0)).to_s(:delimited) %></td>
+    <td class="col-lg-1"><%= order_item.amount %></td>
+    <td class="col-lg-1"><%=((order_item.item.price * order_item.amount * 1.1 ).round(0)).to_s(:delimited) %></td>
+  </tr>
+  <% end %>
 </table>

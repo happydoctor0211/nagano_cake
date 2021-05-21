@@ -1,11 +1,40 @@
-<h3>会員情報編集</h3>
 
-<%= form_with model: @customer, local: true, url: customers_my_page_path,  method: :patch do |f| %>
-<p>氏名  <%= f.text_field :first_name %>  <%= f.text_field :last_name %></p>
-<p>フリガナ  <%= f.text_field :first_name_kana %>  <%= f.text_field :last_name_kana %></p>
-<p>郵便番号 <%= f.text_field :address %></p>
-<p>電話番号 <%= f.text_field :telephone_number %></p>
-<p>メールアドレス <%= f.text_field :email %></p>
 
-<%= f.submit '変更を保存する' %>
-<% end %>
+<div class="container">
+   <h4>会員情報編集</h4>
+</div>
+
+<%= form_with model: @customer, local: true, url: customers_path, method: :patch do |f| %>
+<table class="container">
+  <tr class="row">
+    <td class="col-lg-2">氏名</td>
+    <td class="col-lg-8"><%= f.text_field :first_name %>  <%= f.text_field :last_name %></td>
+  </tr>
+  <tr class="row">
+    <td class="col-lg-2">フリガナ</td>
+    <td class="col-lg-8"> <%= f.text_field :first_name_kana %>  <%= f.text_field :last_name_kana %></td>
+  </tr>
+  <tr class="row">
+    <td class="col-lg-2">郵便番号</td>
+    <td class="col-lg-8"><%= f.text_field :postal_code %></td>
+  </tr>
+  <tr class="row">
+    <td class="col-lg-2">住所</td>
+    <td class="col-lg-8"><%= f.text_field :address, size: 60 %></td>
+  </tr>
+  <tr class="row">
+    <td class="col-lg-2">電話番号</td>
+    <td class="col-lg-8"><%= f.text_field :telephone_number %></td>
+  </tr>
+  <tr class="row">
+    <td class="col-lg-2">メールアドレス</td>
+    <td class="col-lg-8"><%= f.text_field :email %></td>
+  </tr>
+</table>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-2"><%= f.submit '編集内容を保存' %></div>
+   <% end %>
+    <div class="col-lg-2"><%= link_to "退会する", customers_confirm_path %></div>
+  </div>
+</div>

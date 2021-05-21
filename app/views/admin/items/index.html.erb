@@ -7,11 +7,11 @@
 
 <table>
   <tr>
-    <th>商品ID</th>
-    <th>商品名</th>
-    <th>税抜価格</th>
-    <th>ジャンル</th>
-    <th>ステータス</th>
+    <td><strong>商品ID</strong></td>
+    <td><strong>商品名</strong></td>
+    <td><strong>税抜価格</strong></td>
+    <td><strong>ジャンル</strong></td>
+    <td><strong>ステータス</strong></td>
   </tr>
   <% @items.each do |item| %>
   <tr>
@@ -21,14 +21,14 @@
          <%= item.name %>
        <% end %>
     </td>
-    <td><%= item.price %>円</td>
+    <td><%= (item.price).to_s(:delimited) %>円</td>
     <td><%= item.genre.name %></td>
     <td>
       <% item.is_active %>
       <% if item.is_active == true %>
-       <p>販売中</p>
+       販売中
       <% else %>
-       <p>販売停止中</p>
+       販売停止中
       <% end %>
     </td>
   </tr>
