@@ -1,28 +1,31 @@
-<h3>注文履歴一覧</h3>
-<table>
-  <tr>
-    <td>購入日時</td>
-    <td>購入者</td>
-    <td>注文個数</td>
-    <td>注文ステータス</td>
+<div class="container">
+   <h4>注文履歴一覧</h4>
+</div>
+
+<table class="container table">
+  <tr class="row thead-light">
+    <th class="col-lg-3">購入日時</th>
+    <th class="col-lg-3">購入者</th>
+    <th class="col-lg-3">注文個数</th>
+    <th class="col-lg-3">注文ステータス</th>
   </tr>
   <% @orders.each do |order| %>
-  <tr>
-    <td>
+  <tr class="row">
+    <td class="col-lg-3">
       <!--https://qiita.com/jnchito/items/831654253fb8a958ec25-->
       <%= link_to(admin_order_path(order)) do %>
        <%= order.updated_at.strftime('%Y/%m/%d %H:%M:%S') %>
       <% end %>
     </td>
-    <td><%= order.customer.first_name %><%= order.customer.last_name %></td>
-    <td>
+    <td class="col-lg-3"><%= order.customer.first_name %><%= order.customer.last_name %></td>
+    <td class="col-lg-3">
       <% @sum = 0 %>
       <% order.order_items.each do |oi|%>
         <% @sum += oi.amount %>
       <% end %>
       <%= @sum %>
     </td>
-    <td><%= I18n.t("enum.order.status.#{ order.status }") %></td>
+    <td class="col-lg-3"><%= I18n.t("enum.order.status.#{ order.status }") %></td>
   </tr>
   <% end %>
 </table>

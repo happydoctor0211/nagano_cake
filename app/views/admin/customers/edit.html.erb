@@ -1,37 +1,41 @@
-<h3><%= @customer.first_name %><%= @customer.last_name %>さんの会員情報編集</h3>
-<%= form_with model: @customer, local: true, url: admin_customer_path(@customer), metod: :patch do |f| %>
-<table>
-  <tr>
-    <td>会員ID</td>
-    <td> <%= @customer.id %></td>
+
+<div class="container">
+   <h3><%= @customer.first_name %><%= @customer.last_name %>さんの会員情報編集</h3>
+   <%= form_with model: @customer, local: true, url: admin_customer_path(@customer), metod: :patch do |f| %>
+</div>
+
+<table class="container">
+  <tr class="row">
+    <td class="col-lg-2">会員ID</td>
+    <td class="col-lg-7"> <%= @customer.id %></td>
   </tr>
-  <tr>
-    <td>氏名</td>
-    <td><%= f.text_field :first_name %>　<%= f.text_field :last_name %></td>
+  <tr class="row">
+    <td class="col-lg-2">氏名</td>
+    <td class="col-lg-7"><%= f.text_field :first_name %>　<%= f.text_field :last_name %></td>
   </tr>
-  <tr>
-    <td>フリガナ</td>
-    <td><%= f.text_field :first_name_kana %>　<%= f.text_field :last_name_kana %></td>
+  <tr class="row">
+    <td class="col-lg-2">フリガナ</td>
+    <td class="col-lg-7"><%= f.text_field :first_name_kana %>　<%= f.text_field :last_name_kana %></td>
   </tr>
-  <tr>
-    <td>郵便番号</td>
-    <td><%= f.text_field :postal_code %></td>
+  <tr class="row">
+    <td class="col-lg-2">郵便番号</td>
+    <td class="col-lg-7"><%= f.text_field :postal_code %></td>
   </tr>
-  <tr>
-    <td>住所</td>
-    <td><%= f.text_field :address, size: 60 %></td>
+  <tr class="row">
+    <td class="col-lg-2">住所</td>
+    <td class="col-lg-7"><%= f.text_field :address, size: 60 %></td>
   </tr>
-  <tr>
-    <td>電話番号</td>
-    <td><%= f.text_field :telephone_number %></td>
+  <tr class="row">
+    <td class="col-lg-2">電話番号</td>
+    <td class="col-lg-7"><%= f.text_field :telephone_number %></td>
   </tr>
-  <tr>
-    <td>メールアドレス </td>
-    <td><%= f.text_field :email %></td>
+  <tr class="row">
+    <td class="col-lg-2">メールアドレス </td>
+    <td class="col-lg-7"><%= f.text_field :email %></td>
   </tr>
-  <tr>
-    <td>会員ステータス</td>
-    <td>
+  <tr class="row">
+    <td class="col-lg-2">会員ステータス</td>
+    <td class="col-lg-7">
       <%= f.radio_button :is_active, true %>
       <%= f.label :is_active, '有効', value: true %>
       <%= f.radio_button :is_active, false %>
@@ -40,5 +44,8 @@
   </tr>
 </table>
 
-<%= f.submit '変更を保存する' %>
+<div class="container">
+   <%= f.submit '変更を保存する' %>
+</div>
+
 <% end %>

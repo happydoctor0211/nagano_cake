@@ -1,34 +1,42 @@
-<h3>商品一覧</h3>
-<p>
-  <%= link_to(new_admin_item_path) do %>
-  ➕
-  <% end %>
-</p>
+<div class="container">
+   <div class="row">
+      <div class="col-lg-11">
+        <h4>商品一覧</h4>
+      </div>
+      <div>
+         <p>
+           <%= link_to(new_admin_item_path) do %>
+            ➕
+            <% end %>
+         </p>
+      </div>
+   </div>
+</div>
 
-<table>
-  <tr>
-    <td><strong>商品ID</strong></td>
-    <td><strong>商品名</strong></td>
-    <td><strong>税抜価格</strong></td>
-    <td><strong>ジャンル</strong></td>
-    <td><strong>ステータス</strong></td>
+<table class="container table">
+  <tr class="row thead-light">
+    <th class="col-lg-1">商品ID</th>
+    <th class="col-lg-4">商品名</th>
+    <th class="col-lg-1">税抜価格</th>
+    <th class="col-lg-4">ジャンル</th>
+    <th class="col-lg-2">ステータス</th>
   </tr>
   <% @items.each do |item| %>
-  <tr>
-    <td><%= item.id %></td>
-    <td>
+  <tr class="row">
+    <td class="col-lg-1"><%= item.id %></td>
+    <td class="col-lg-4">
        <%= link_to(admin_item_path(item)) do %>
          <%= item.name %>
        <% end %>
     </td>
-    <td><%= (item.price).to_s(:delimited) %>円</td>
-    <td><%= item.genre.name %></td>
-    <td>
+    <td class="col-lg-1"><%= (item.price).to_s(:delimited) %>円</td>
+    <td class="col-lg-4"><%= item.genre.name %></td>
+    <td class="col-lg-2">
       <% item.is_active %>
       <% if item.is_active == true %>
-       販売中
+       <p class="text-success"><strong>販売中</strong></p>
       <% else %>
-       販売停止中
+       <p class="text-secondary"><strong>販売停止中</strong></p>
       <% end %>
     </td>
   </tr>

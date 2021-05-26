@@ -1,29 +1,36 @@
-<h3>商品新規登録</h3>
+<div class="container">
+   <div class="row">
+     <h4>商品新規登録</h4>
+   </div>
+</div>
+
+
+
 <%= form_with model: @item, local: true, url: admin_items_path  do |f| %>
-<table>
-  <tr>
-    <td>商品画像</td>
-    <td><%= f.attachment_field :image %></td>
+<table class="container">
+  <tr class="row">
+    <td class="col-lg-2">商品画像</td>
+    <td class="col-lg-7"><%= f.attachment_field :image %></td>
   </tr>
-  <tr>
-    <td>商品名</td>
-    <td><%= f.text_field :name %></td>
+  <tr class="row">
+    <td class="col-lg-2">商品名</td>
+    <td class="col-lg-7"><%= f.text_field :name %></td>
   </tr>
-  <tr>
-    <td>商品説明</td>
-    <td><%= f.text_area :introduction %></td>
+  <tr class="row">
+    <td class="col-lg-2">商品説明</td>
+    <td class="col-lg-7"><%= f.text_area :introduction %></td>
   </tr>
-  <tr>
-    <td>ジャンル</td>
-    <td><%= f.collection_select :genre_id, Genre.all, :id, :name %></td>
+  <tr class="row">
+    <td class="col-lg-2">ジャンル</td>
+    <td class="col-lg-7"><%= f.collection_select :genre_id, Genre.all, :id, :name %></td>
   </tr>
-  <tr>
-    <td>税抜価格</td>
-    <td><%= f.text_field :price %> 円</td>
+  <tr class="row">
+    <td class="col-lg-2">税抜価格</td>
+    <td class="col-lg-7"><%= f.text_field :price %> 円</td>
   </tr>
-  <tr>
-    <td>販売ステータス</td>
-    <td>
+  <tr class="row">
+    <td class="col-lg-2">販売ステータス</td>
+    <td class="col-lg-7">
       <%= f.radio_button :is_active, true %>
 　    <%= f.label :is_active, '販売中', value: true %>
 　    <%= f.radio_button :is_active, false %>
@@ -31,5 +38,8 @@
     </td>
   </tr>
 </table>
-<%= f.submit '新規登録' %>
+
+<div class="container">
+  <%= f.submit '新規登録' %>
 <% end %>
+</div>

@@ -1,41 +1,48 @@
-<h3><%= @customer.first_name %><%= @customer.last_name %>さんの会員詳細</h3>
-<table>
-    <tr>
-        <td>会員ID</td>
-        <td><%= @customer.id %></td>
-    </tr>
-    <tr>
-        <td>氏名</td>
-        <td><%= @customer.first_name %><%= @customer.last_name %></td>
-    </tr>
-    <tr>
-        <td>フリガナ</td>
-        <td><%= @customer.first_name_kana %><%= @customer.last_name_kana %></td>
-    </tr>
-    <tr>
-        <td>郵便番号</td>
-        <td><%= @customer.postal_code %></td>
-    </tr>
-    <tr>
-        <td>住所</td>
-        <td><%= @customer.address %></td>
-    </tr>
-    <tr>
-        <td>電話番号</td>
-        <td><%= @customer.telephone_number %></td>
-    </tr>
-    <tr>
-        <td>メールアドレス</td>
-        <td><%= @customer.email %></td>
-    </tr>
-    <tr>
-        <td>会員ステータス</td>
-        <td><%= @status %></td>
-    </tr>
+<div class="container" >
+     <div class="row">
+         <h4><%= @customer.first_name %><%= @customer.last_name %>さんの会員詳細</h4>
+     </div>
+</div>
+
+<table class="container table">
+     <tr class="row">
+         <td class="col-lg-2">会員ID</td>
+         <td class="col-lg-7"><%= @customer.id %></td>
+     </tr>
+     <tr class="row">
+         <td class="col-lg-2">氏名</td>
+         <td class="col-lg-7"><%= @customer.first_name %><%= @customer.last_name %></td>
+     </tr>
+     <tr class="row">
+         <td class="col-lg-2">フリガナ</td>
+         <td class="col-lg-7"><%= @customer.first_name_kana %><%= @customer.last_name_kana %></td>
+     </tr>
+     <tr class="row">
+         <td class="col-lg-2">郵便番号</td>
+         <td class="col-lg-7"><%= @customer.postal_code %></td>
+     </tr>
+     <tr class="row">
+         <td class="col-lg-2">住所</td>
+         <td class="col-lg-7"><%= @customer.address %></td>
+     </tr>
+     <tr class="row">
+         <td class="col-lg-2">電話番号</td>
+         <td class="col-lg-7"><%= @customer.telephone_number %></td>
+     </tr>
+     <tr class="row">
+         <td class="col-lg-2">メールアドレス</td>
+         <td class="col-lg-7"><%= @customer.email %></td>
+     </tr>
+     <tr class="row">
+         <td class="col-lg-2">会員ステータス</td>
+         <td class="col-lg-7"><%= @status %></td>
+     </tr>
 </table>
-<table>
-    <tr>
-      <td><%= link_to "編集する", edit_admin_customer_path(@customer) %></td>
-      <td><%= link_to "注文履歴一覧", admin_root_path %></td>
-    </tr>
+
+<table class="container">
+     <tr class="row">
+         <td class="col-lg-2"></td>
+         <td class="col-lg-1"><%= link_to "編集する", edit_admin_customer_path(@customer) %></td>
+         <td class="col-lg-2"><%= link_to "注文履歴一覧", admin_root_path %></td>
+     </tr>
 </table>

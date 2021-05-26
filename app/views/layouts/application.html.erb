@@ -13,19 +13,19 @@
       <nav class="container">
         <ul class="row">
           <% if admin_signed_in? %>
-          　 <div class="col-lg-6">
+          　 <div class="col-lg-2">
           　    <li>
                  <%= link_to(root_path) do %>
-                   LOGO
+                   <%= image_tag 'logo.png', :size => '90x80' %>
                  <% end %>
                </li>
           　 </div>
-             <div class="col-lg-6">
+             <div class="col-lg-8">
                <div class="row">
                  <li class="col-lg-2"><%= link_to "商品一覧", admin_items_path %></li>
                  <li class="col-lg-2"><%= link_to"会員一覧", admin_customers_path %></li>
-                 <li class="col-lg-2"><%= link_to "注文履歴一覧", admin_root_path %></li>
-                 <li class="col-lg-2"><%= link_to "ジャンル一覧", admin_genres_path %></li>
+                 <li class="col-lg-3"><%= link_to "注文履歴一覧", admin_root_path %></li>
+                 <li class="col-lg-3"><%= link_to "ジャンル一覧", admin_genres_path %></li>
                  <li class="col-lg-2"><%= link_to "ログアウト", destroy_admin_session_path, method: :delete %></li>
                </div>
              </div>
@@ -33,7 +33,7 @@
              <div class="col-lg-6">
                <li>
                  <%= link_to(root_path) do %>
-                   LOGO
+                   <%= image_tag 'logo.png', :size => '90x80' %>
                  <% end %>
                </li>
              </div>
@@ -49,7 +49,7 @@
              <div class="col-lg-6">
                <li>
                  <%= link_to(root_path) do %>
-                   LOGO
+                  <%= image_tag 'logo.png', :size => '90x80' %>
                  <% end %>
                </li>
              </div>
@@ -61,8 +61,6 @@
                  <li class="col-lg-3"><%= link_to "ログイン", new_customer_session_path %></li>
                </div>
              </div>
-
-
           <% end %>
         </ul>
       </nav>

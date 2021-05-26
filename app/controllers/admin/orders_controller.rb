@@ -19,6 +19,12 @@ class Admin::OrdersController < ApplicationController
   def update
     @order = Order.find(params[:id])
     @order.update(order_params)
+    @order_items = @order.order_items
+    if @order.status == "payment_confirmation"
+      @order_items.each do |order_item|
+        order_item.update(making_status:1)
+      end
+    end
     redirect_to admin_order_path(@order)
   end
 
@@ -27,6 +33,7 @@ class Admin::OrdersController < ApplicationController
   def order_params
     params.require(:order).permit(:customer_id, :status, :postal_code, :address, :name, :method_payment, :shipping, :total_payment)
   end
+
 
 
 
